@@ -4,6 +4,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -26,7 +27,8 @@ fun ProdutcsSection(
                 end = 16.dp
             ),
             fontSize = 20.sp,
-            fontWeight = FontWeight(400)
+            fontWeight = FontWeight(400),
+            color = MaterialTheme.colorScheme.onSecondaryContainer
         )
         Row(
             Modifier

@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun App() {
-    AluveryTheme {
+    AluveryTheme() {
         Surface {
             HomeScreen()
         }

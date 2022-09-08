@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,12 +21,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.paradoxo.aluvery.R
 import com.paradoxo.aluvery.extensions.toBrazilianCurrency
 import com.paradoxo.aluvery.model.Product
-import com.paradoxo.aluvery.ui.theme.Purple500
-import com.paradoxo.aluvery.ui.theme.Teal200
 import java.math.BigDecimal
-import com.paradoxo.aluvery.R
 
 @Composable
 fun ProductItem(product: Product) {
@@ -37,6 +36,7 @@ fun ProductItem(product: Product) {
             Modifier
                 .heightIn(min = 250.dp, max = 300.dp)
                 .width(200.dp)
+                .background(MaterialTheme.colorScheme.onSecondary)
         ) {
             val imageSize = 100.dp
             Box(
@@ -45,7 +45,8 @@ fun ProductItem(product: Product) {
                     .background(
                         brush = Brush.horizontalGradient(
                             colors = listOf(
-                                Purple500, Teal200
+                                MaterialTheme.colorScheme.primary,
+                                MaterialTheme.colorScheme.primaryContainer
                             )
                         )
                     )
@@ -70,13 +71,15 @@ fun ProductItem(product: Product) {
                     fontSize = 18.sp,
                     fontWeight = FontWeight(700),
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.outline
                 )
                 Text(
                     text = product.price.toBrazilianCurrency(),
                     fontSize = 14.sp,
                     modifier = Modifier.padding(top = 8.dp),
-                    fontWeight = FontWeight(400)
+                    fontWeight = FontWeight(400),
+                    color = MaterialTheme.colorScheme.outline
                 )
             }
         }
