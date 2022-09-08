@@ -3,8 +3,7 @@ package com.paradoxo.aluvery
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -38,7 +37,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AluveryTheme {
                 Surface {
-                    ProdutoItem()
+                    ProdutcsSection()
                 }
             }
 
@@ -46,11 +45,39 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
+@Composable
+fun ProdutcsSection() {
+    Column {
+        Text(
+            text = "Promoções",
+            Modifier.padding(start = 16.dp, top = 8.dp),
+            fontSize = 20.sp,
+            fontWeight = FontWeight(400)
+        )
+        Row(
+            Modifier
+                .padding(
+                    top = 8.dp,
+                    bottom = 16.dp
+                )
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement =
+            Arrangement.spacedBy(16.dp)
+        ) {
+            Spacer(Modifier)
+            ProdutoItem()
+            ProdutoItem()
+            ProdutoItem()
+            Spacer(Modifier)
+        }
+    }
+
+}
+
 @Composable
 fun ProdutoItem() {
     Surface(
-        Modifier.padding(8.dp),
         shape = RoundedCornerShape(15.dp),
         elevation = 4.dp
     ) {
@@ -101,5 +128,16 @@ fun ProdutoItem() {
             }
         }
     }
+}
 
+@Preview(showBackground = true)
+@Composable
+fun ProdutcsSectionPreview() {
+    ProdutcsSection()
+}
+
+@Preview
+@Composable
+private fun ProductItemPreview() {
+    ProdutoItem()
 }
