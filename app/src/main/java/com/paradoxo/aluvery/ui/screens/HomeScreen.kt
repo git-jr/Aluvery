@@ -14,7 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paradoxo.aluvery.R
 import com.paradoxo.aluvery.model.Product
-import com.paradoxo.aluvery.sampleData.sampleProducts
+import com.paradoxo.aluvery.sampleData.sampleProductsDrink
+import com.paradoxo.aluvery.sampleData.sampleProductsEat
+import com.paradoxo.aluvery.sampleData.sampleProductsSweet
 import com.paradoxo.aluvery.ui.components.ProdutcsSection
 import java.math.BigDecimal
 
@@ -30,14 +32,12 @@ fun HomeScreen() {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Spacer(Modifier)
-        ProdutcsSection("Promoções", sampleProducts)
+        ProdutcsSection("Promoções", sampleProductsEat)
         ProdutcsSection(
-            "Doces", listOf(
-                Product(
-                    "Chocolate Kitkat", BigDecimal("4.20"), R.drawable.placeholder
-                )))
+            "Doces", sampleProductsSweet
+        )
         ProdutcsSection(
-            "Bebidas", sampleProducts
+            "Bebidas", sampleProductsDrink
         )
         Spacer(Modifier)
     }

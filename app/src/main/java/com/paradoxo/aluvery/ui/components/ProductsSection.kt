@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.paradoxo.aluvery.model.Product
-import com.paradoxo.aluvery.sampleData.sampleProducts
+import com.paradoxo.aluvery.sampleData.sampleProductsEat
 
 @Composable
 fun ProdutcsSection(
@@ -53,7 +53,7 @@ fun ProdutcsSection(
 @Preview(showBackground = true)
 @Composable
 fun ProdutcsSectionPreview() {
-    ProdutcsSection("Promoções", sampleProducts)
+    ProdutcsSection("Promoções", sampleProductsEat)
 }
 
 
