@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,22 +26,44 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.paradoxo.aluvery.extensions.toBrazilianCurrency
+import com.paradoxo.aluvery.model.Product
 import com.paradoxo.aluvery.ui.components.CustomLayoutPreview
 import com.paradoxo.aluvery.ui.theme.AluveryTheme
 import com.paradoxo.aluvery.ui.theme.Purple200
 import com.paradoxo.aluvery.ui.theme.Purple500
 import com.paradoxo.aluvery.ui.theme.Teal200
+import java.lang.Appendable
+import java.math.BigDecimal
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AluveryTheme {
-                Surface {
-                    ProdutcsSection()
-                }
-            }
+            App()
 
+        }
+    }
+}
+
+@Composable
+fun App() {
+    AluveryTheme {
+        Surface {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(
+                        rememberScrollState()
+                    ),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Spacer(Modifier)
+                ProdutcsSection()
+                ProdutcsSection()
+                ProdutcsSection()
+                Spacer(Modifier)
+            }
         }
     }
 }
@@ -50,7 +73,10 @@ fun ProdutcsSection() {
     Column {
         Text(
             text = "Promoções",
-            Modifier.padding(start = 16.dp, top = 8.dp),
+            Modifier.padding(
+                start = 16.dp,
+                end = 16.dp
+            ),
             fontSize = 20.sp,
             fontWeight = FontWeight(400)
         )
@@ -58,7 +84,6 @@ fun ProdutcsSection() {
             Modifier
                 .padding(
                     top = 8.dp,
-                    bottom = 16.dp
                 )
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState()),
@@ -66,9 +91,27 @@ fun ProdutcsSection() {
             Arrangement.spacedBy(16.dp)
         ) {
             Spacer(Modifier)
-            ProdutoItem()
-            ProdutoItem()
-            ProdutoItem()
+            ProdutoItem(
+                Product(
+                    name = "Hamburger",
+                    price = BigDecimal("12.99"),
+                    image = R.drawable.burger
+                )
+            )
+            ProdutoItem(
+                Product(
+                    name = "Pizza",
+                    price = BigDecimal("19.99"),
+                    image = R.drawable.pizza
+                )
+            )
+            ProdutoItem(
+                Product(
+                    name = "Batata frita",
+                    price = BigDecimal("7.99"),
+                    image = R.drawable.fries
+                )
+            )
             Spacer(Modifier)
         }
     }
@@ -76,7 +119,7 @@ fun ProdutcsSection() {
 }
 
 @Composable
-fun ProdutoItem() {
+fun ProdutoItem(product: Product) {
     Surface(
         shape = RoundedCornerShape(15.dp),
         elevation = 4.dp
@@ -100,34 +143,41 @@ fun ProdutoItem() {
                     .fillMaxWidth()
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    painter = painterResource(id = product.image),
                     contentDescription = null,
                     Modifier
                         .size(imageSize)
                         .offset(y = imageSize / 2)
                         .clip(shape = CircleShape)
-                        .align(BottomCenter)
+                        .align(BottomCenter),
+                    contentScale = ContentScale.Crop
                 )
 
             }
             Spacer(modifier = Modifier.height(50.dp))
             Column(Modifier.padding(16.dp)) {
                 Text(
-                    text = LoremIpsum(20).values.first(),
+                    text = product.name,
                     fontSize = 18.sp,
                     fontWeight = FontWeight(700),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "R$ 14,20",
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(8.dp),
+                    text = product.price.toBrazilianCurrency(),
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 8.dp),
                     fontWeight = FontWeight(400)
                 )
             }
         }
     }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun AppPreview() {
+    App()
 }
 
 @Preview(showBackground = true)
@@ -139,5 +189,11 @@ fun ProdutcsSectionPreview() {
 @Preview
 @Composable
 private fun ProductItemPreview() {
-    ProdutoItem()
+    ProdutoItem(
+        Product(
+            name = LoremIpsum(50).values.first(),
+            price = BigDecimal("14.99"),
+            image = R.drawable.ic_launcher_background
+        )
+    )
 }
